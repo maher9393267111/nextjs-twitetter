@@ -21,7 +21,7 @@ export default NextAuth({
     async session({session, token}){
       session.user.username = session.user.name.split(" ").join("").toLocaleLowerCase();
       session.user.uid = token.sub;
-      console.log('current user-------->',session.user);
+      console.log('current user from api auth-------->',session.user.username);
       return session;
     }
   }
