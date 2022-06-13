@@ -13,12 +13,16 @@ import { signIn, useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import Moment from "react-moment";
 import { db, storage } from "../firebase";
+import { useRecoilState } from "recoil";
+import { modalState } from "../atom/modalAtom";
+
 
 export default function Post({ post }) {
   const { data: session } = useSession();
   const [likes, setLikes] = useState([]);
   const [hasLiked, setHasLiked] = useState(false);
-  //const [open, setOpen] = useRecoilState(modalState)
+  const [open, setOpen] = useRecoilState(modalState)
+  console.log('opne',open)
 
   useEffect(() => {
     //  show all likes of current post
