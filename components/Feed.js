@@ -1,28 +1,27 @@
 import { SparklesIcon } from "@heroicons/react/outline";
 import Input from "./Input";
 import Post from "./Post";
+import { AnimatePresence, motion } from 'framer-motion'
+import { useState,useEffect } from 'react'
+import { collection, onSnapshot, orderBy, query } from 'firebase/firestore'
+import { db } from '../firebase'
+
 export default function Feed() {
 
-    const posts = [
-        {
-          id: "1",
-          name: "Sahand Ghavidel",
-          username: "codewithsahand",
-          userImg: "https://www.adscientificindex.com/pictures/0b/50734.jpg",
-          img: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=874&q=80",
-          text: "nice view!",
-          timestamp: "2 hours ago",
-        },
-        {
-          id: "2",
-          name: "Sahand Ghavidel",
-          username: "codewithsahand",
-          userImg: "https://www.adscientificindex.com/pictures/0b/50734.jpg",
-          img: "https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=876&q=80",
-          text: "wow!",
-          timestamp: "2 days ago",
-        },
-      ];
+  const [posts, setPosts] = useState([])
+  useEffect(() => onSnapshot(
+          query(collection(db, "posts"), orderBy("timestamp", "desc")),
+          (snapshot) => {
+              setPosts(snapshot.docs)
+              console.log('posts',snapshot.docs)
+          }
+      )
+  ,[])
+
+
+
+
+ 
 
 
 
@@ -37,9 +36,25 @@ export default function Feed() {
       </div>
       <Input />
 
-      {posts.map((post) => (
-        <Post key={post.id} post={post} />
-      ))}
+      <AnimatePresence>
+            {posts.map((post) => (
+                <motion.div
+                    key={post.id}
+                    initial={{opacity: 0}}
+                    animate={{opacity: 1}}
+                    exit={{opacity: 0}}
+                    trasition={{duration: 1}}
+                >
+                    <Post
+                        key={post.id} 
+                        post={post}
+                    />
+                </motion.div>
+            ))}
+            </AnimatePresence>
+
+
+
 
     </div>
   );
