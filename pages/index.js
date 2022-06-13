@@ -4,6 +4,7 @@ import Feed from "../components/Feed";
 import styles from '../styles/Home.module.css'
 import Sidebar from "../components/Sidebar";
 import Widgets from "../components/Widgets";
+import CommentModal from '../components/CommentModal';
 export default function Home({ newResults,randomUsersResults }) {
 
   console.log(newResults)
@@ -32,7 +33,7 @@ export default function Home({ newResults,randomUsersResults }) {
 
         {/* Modal */}
 
-        {/* <CommentModal /> */}
+        <CommentModal />
       </main>
 
 
