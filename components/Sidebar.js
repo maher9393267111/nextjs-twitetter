@@ -2,6 +2,7 @@ import React from 'react';
 import Image from "next/image";
 import { HomeIcon } from "@heroicons/react/solid";
 import SidebarMenuItem from "./SidebarMenuItem";
+import { useSession, signOut } from "next-auth/react";
 import {
   BellIcon,
   BookmarkIcon,
@@ -13,6 +14,9 @@ import {
   UserIcon,
 } from "@heroicons/react/outline";
 const Sidebar = () => {
+
+
+
     return (
 
 
